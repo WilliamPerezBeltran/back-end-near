@@ -1,5 +1,5 @@
 import { Context } from 'near-sdk-as';
-import { createProduct,getproductById,deleteProductbyId } from "../index";
+import { createProduct,getproductById,deleteProductbyId,updateProduct } from "../index";
 import { Product, productsMap } from "../models/Product";
 
 describe("contract methods", () => {
@@ -28,8 +28,6 @@ describe("contract methods", () => {
 	    }).toThrow()
 	})
 
-	
-
 	it("find all product by id test 1", () => {
 		const product6 = createProduct("product6",12.25,"la descripcion del product6",2);
 		const product7 = createProduct("product7",12.25,"la descripcion del product7",21);
@@ -39,12 +37,17 @@ describe("contract methods", () => {
 		expect(productsMap.values(0, productsMap.length).length).toBe(4);
 	});
 
-	// it("update product", () => {
-	// 	const product = createProduct("product",12.25,"la descripcion del product",2);
-	// 	const lenthProduct = 9
-	// 	expect(productsMap.values(0, productsMap.length).length).toBe(9);
-	// });
+	it("update product", () => {
+		const product = createProduct("product",12.25,"la descripcion del product",2);
+		updateProduct(product.productId,{ productName:"update product",productPrice:5.8,productDescription:"update product descripcion",productQuantity:2})
+		
+		const findProductUpdate = Product.findProduct(product.productId);
 
+		expect(findProductUpdate.productId).toStrictEqual(product.productId);
+		expect(findProductUpdate.productName).toStrictEqual("update product");
+		expect(findProductUpdate.productPrice).toStrictEqual(5.8);
+		expect(findProductUpdate.productDescription).toStrictEqual("update product descripcion");
+		expect(findProductUpdate.productQuantity).toStrictEqual(2);
+	});
 
 });
-

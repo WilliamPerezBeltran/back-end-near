@@ -42,7 +42,15 @@ usar nvm mayor a 15
 ]
 
 
+
  near call $CONTRACT getproductById '{"productId":1666696188}' --account_id $OWNER
 
   near call $CONTRACT deleteProductbyId '{"productId":1666696188}' --account_id $OWNER
   near call $CONTRACT getAllProducts  --account_id $OWNER
+
+
+
+
+
+    near call $CONTRACT updateProduct '{"productId":3005339520, "updateProduct":{ "productName":"update product","productPrice":5.8,"productDescription":"update product descripcion","productQuantity":2}  }' --account_id $OWNER
+
