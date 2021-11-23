@@ -37,5 +37,12 @@ export class Product {
     return productsMap.getSome(productId);
   }
 
+  static removeProduct(productId: u32): void {
+    // delete product by id 
+     productsMap.delete(productId);
+  }
+
+  
+
 
 }

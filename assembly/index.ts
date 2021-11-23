@@ -9,3 +9,7 @@ export function getproductById(productId: u32):Product{
 	return Product.findProduct(productId);
 }
 
+export function deleteProductbyId(productId: u32):void{
+	 Product.removeProduct(productId);
+}
+
