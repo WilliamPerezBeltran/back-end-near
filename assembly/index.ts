@@ -5,3 +5,7 @@ export function createProduct(productName: string, productPrice: f64, productDes
 	return Product.insert(productName, productPrice, productDescription,Context.sender,productQuantity);
 }
 
+export function getproductById(productId: u32):Product{
+	return Product.findProduct(productId);
+}
+

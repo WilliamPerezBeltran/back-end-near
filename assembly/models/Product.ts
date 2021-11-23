@@ -32,5 +32,10 @@ export class Product {
     return product;
   }
 
+  static findProduct(productId: u32): Product {
+    // Find product by id 
+    return productsMap.getSome(productId);
+  }
+
 
 }

@@ -28,3 +28,6 @@ usar nvm mayor a 15
   productQuantity: 2,
   productAvailability: true
 }
+
+
+ near call $CONTRACT getproductById '{"productId":1666696188}' --account_id $OWNER
