@@ -3,7 +3,7 @@
 usar nvm mayor a 15 
 
 
- CONTRACT=dev-1637677410025-48870131283445
+ CONTRACT=dev-1637708519782-42505619109451
  OWNER=williamfpb.testnet
 
   near call $CONTRACT createProduct '{"productName":"nombre producto","productPrice":12.05,"productDescription":"description producto","productQuantity":2}' --account_id $OWNER
@@ -53,4 +53,21 @@ usar nvm mayor a 15
 
 
     near call $CONTRACT updateProduct '{"productId":3005339520, "updateProduct":{ "productName":"update product","productPrice":5.8,"productDescription":"update product descripcion","productQuantity":2}  }' --account_id $OWNER
+
+
+
+near call $CONTRACT addComment '{"productId":1666696188,"descripcion":"ole_0"}' --account_id $OWNER
+near call $CONTRACT addComment '{"productId":1666696188,"descripcion":"ole_1"}' --account_id $OWNER
+
+
+near call $CONTRACT addComment '{"productId":1489886537,"descripcion":"wala_0"}' --account_id $OWNER
+near call $CONTRACT addComment '{"productId":3005339520,"descripcion":"data"}' --account_id $OWNER
+
+
+ near call $CONTRACT deleteComments --account_id $OWNER
+
+
+  near call $CONTRACT getAllComments --account_id $OWNER
+
+
 
