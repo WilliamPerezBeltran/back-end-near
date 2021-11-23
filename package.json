@@ -10,7 +10,8 @@
     "build": "asb",
     "deploy": "near dev-deploy build/release/back-end.wasm",
     "dev": "npm run build && npm run deploy",
-    "test": "asp"
+    "test": "asp",
+    "all": "npm run build && npm run test && npm run dev"
   },
   "keywords": [],
   "author": "",

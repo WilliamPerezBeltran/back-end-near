@@ -1,6 +1,14 @@
-import { PersistentUnorderedMap, math } from "near-sdk-as";
-
+import { PersistentUnorderedMap, math, logging} from "near-sdk-as";
 export const productsMap = new PersistentUnorderedMap<u32, Product>("product");
+
+// @nearBindgen
+// export class updateProductItem {
+//   productName: string;
+//   productPrice: f64;
+//   productDescription: string;
+//   productQuantity: u32;
+// }
+
 
 
 @nearBindgen
@@ -42,7 +50,26 @@ export class Product {
      productsMap.delete(productId);
   }
 
+  static getProducts(): Product[] {
+     // get all products 
+      return productsMap.values(0, productsMap.length);
+  }
+
+  // static update(productId: u32,updateProduct:updateProductItem): Product {
+  //    // find product
+  //    const product = this.findProduct(productId)
+  //    product.productName = updateProduct.productName
+  //    product.productPrice = updateProduct.productPrice
+  //    product.productDescription = updateProduct.productDescription
+  //    product.productQuantity = updateProduct.productQuantity
+
+  //   // persist the updated todo
+  //   productsMap.set(productId, product);
+  //   return product;
+  // }
+
   
+
 
 
 }
