@@ -1,6 +1,31 @@
-import { Context, PersistentVector,logging,PersistentUnorderedMap,math} from "near-sdk-as";
+import { Context, PersistentVector,logging,PersistentUnorderedMap,math,PersistentMap} from "near-sdk-as";
 import { Product,updateProductItem } from "./models/Product"
 import { Comment,commentsVector } from "./models/Comment"
+import { User,usersPersistentMap } from "./models/User"
+
+export function registerUser(userName: string, userEmail: string): User {
+	const newUser = new User(Context.sender, userName,userEmail,[],[]);
+	usersPersistentMap.set(Context.sender, newUser)
+	return newUser
+}
+
+export function registerProductUser(productName: string, productPrice: f64, productDescription: string,productQuantity:u32):string{
+	const userId = Context.sender;
+	const newProduct = createProduct(productName, productPrice, productDescription,productQuantity)
+	const user = usersPersistentMap.get(userId)
+	if(user){
+		user.userProducts.push(newProduct)
+		usersPersistentMap.set(userId,user)
+		return `New product has been registered!`;
+	}else{
+		return "The user is not registered";
+	}
+}
+
+export function getUserbyId(creator:string):User{
+	const userId = creator;
+	return usersPersistentMap.getSome(userId)
+}
 
 export function createProduct(productName: string, productPrice: f64, productDescription: string,productQuantity:u32):Product{
 	return Product.insert(productName, productPrice, productDescription,Context.sender,productQuantity);

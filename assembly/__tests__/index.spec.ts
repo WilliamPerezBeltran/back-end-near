@@ -1,9 +1,39 @@
-import { Context } from 'near-sdk-as';
+import { Context,logging } from 'near-sdk-as';
 import { createProduct,getproductById,deleteProductbyId,updateProduct } from "../index";
 import { Product, productsMap } from "../models/Product";
-import { createComment } from "../index";
+import { createComment, registerUser,getUserbyId,registerProductUser } from "../index";
+import { User,usersPersistentMap } from "../models/User";
 
 describe("contract methods", () => {
+	it("Register user", () => {
+		const user = registerUser( "name", "name@gmail.com");
+		expect(user.userId).toStrictEqual(Context.sender)
+		expect(user.userName).toStrictEqual("name")
+		expect(user.userEmail).toStrictEqual("name@gmail.com")
+		expect(user.userProducts).toStrictEqual([])
+		expect(user.userPurchasedProducts).toStrictEqual([])
+	});
+
+	it("get User by Id", () => {
+		const userRegister = registerUser( "name", "name@gmail.com");
+		const userCreator = userRegister.userId 
+		const findUser = getUserbyId(Context.sender)
+		expect(findUser.userId).toStrictEqual(userCreator);
+	});
+
+	it("Register product has been registered ", () => {
+		const userId = Context.sender;
+		const user = registerUser( "name", "name@gmail.com");
+		const newProduct = registerProductUser("producto1",10.25,"la descripcion del producto1",2);
+		expect("New product has been registered!").toStrictEqual(newProduct);
+	});
+
+	it("The user is not registered", () => {
+		const userId = Context.sender;
+		const newProduct = registerProductUser("producto1",10.25,"la descripcion del producto1",2);
+		expect("The user is not registered").toStrictEqual(newProduct);
+	});
+
 	it("creates a product", () => {
 		const product = createProduct("producto",12.25,"la descripcion del producto",20);
 		expect(productsMap.getSome(product.productId)).toStrictEqual(product);
@@ -14,7 +44,6 @@ describe("contract methods", () => {
 		const producto2 = createProduct("producto2",9.0,"la descripcion del producto2",1);
 		const producto3 = createProduct("producto3",8.28,"la descripcion del producto3",4);
 		const producto4 = createProduct("producto4",5.2,"la descripcion del producto4",3);
-
 		expect(productsMap.getSome(producto1.productId)).toStrictEqual(producto1);
 		expect(productsMap.getSome(producto2.productId)).toStrictEqual(producto2);
 		expect(productsMap.getSome(producto3.productId)).toStrictEqual(producto3);
@@ -41,23 +70,19 @@ describe("contract methods", () => {
 	it("update product", () => {
 		const product = createProduct("product",12.25,"la descripcion del product",2);
 		updateProduct(product.productId,{ productName:"update product",productPrice:5.8,productDescription:"update product descripcion",productQuantity:2})
-		
 		const findProductUpdate = Product.findProduct(product.productId);
-
 		expect(findProductUpdate.productId).toStrictEqual(product.productId);
 		expect(findProductUpdate.productName).toStrictEqual("update product");
 		expect(findProductUpdate.productPrice).toStrictEqual(5.8);
 		expect(findProductUpdate.productDescription).toStrictEqual("update product descripcion");
 		expect(findProductUpdate.productQuantity).toStrictEqual(2);
 	});
-
+	
 	it("create comment", () => {
 		const product = createProduct("product",10.02,"la descripcion",2);
 		const comment = createComment(1,Context.sender,product.productId)
 		expect(comment.commentId).toStrictEqual(comment.commentId)
 		expect(comment.creator).toStrictEqual(Context.sender)
 		expect(comment.productId).toStrictEqual(product.productId)
-
 	});
-
 });
