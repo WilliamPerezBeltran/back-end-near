@@ -1,4 +1,4 @@
-import { Context, PersistentVector,logging,PersistentUnorderedMap,math,PersistentMap} from "near-sdk-as";
+import { Context, PersistentVector, logging, PersistentUnorderedMap, math, PersistentMap, u128} from "near-sdk-as";
 import { Product,updateProductItem } from "./models/Product"
 import { Comment,commentsVector } from "./models/Comment"
 import { User,usersPersistentMap } from "./models/User"
@@ -84,6 +84,26 @@ export function getAllComments():Comment[]{
 		comment[i] = commentsVector[i]
 	}
 	return comment
+}
+
+export function buyProduct(productId: u32): string {
+  const attachedDeposit = (Context.attachedDeposit as u128)
+  const sender = Context.sender;
+  const product = Product.findProduct(productId)
+  if (product) {
+    const userId = Context.sender;
+    const user = usersPersistentMap.get(userId)
+    if (user) {
+      if (attachedDeposit >= u128.from(product.productPrice)) {
+        user.userPurchasedProducts.push(product);
+        usersPersistentMap.set(userId,user)
+        return `${product.productName} was successfully purchased`
+      }
+      return `The price of the price is higher: you inserted  ${attachedDeposit}NEAR`
+    }
+    return `User: ${userId} is not registered`
+  }
+  return `No product found`
 }
 
 
