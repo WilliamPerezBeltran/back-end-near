@@ -19,7 +19,7 @@ export class Product {
   productQuantity: u32;
   productAvailability:boolean;
 
-  constructor(productName: string, productPrice: f64, productDescription: string,productOwner:string,productQuantity:i32) {
+  constructor(productName: string, productPrice: f64, productDescription: string,productOwner:string,productQuantity:u32) {
     this.productId = math.hash32<string>(productName);
     this.productName = productName;
     this.productPrice = productPrice;
@@ -29,7 +29,7 @@ export class Product {
     this.productAvailability = true;
   }
 
-   static insert(productName: string, productPrice: f64, productDescription: string,productOwner:string,productQuantity:i32): Product {
+   static insert(productName: string, productPrice: f64, productDescription: string,productOwner:string,productQuantity:u32): Product {
     // create a new product
     const product = new Product(productName, productPrice, productDescription,productOwner,productQuantity);
     // add product to map he productsMap

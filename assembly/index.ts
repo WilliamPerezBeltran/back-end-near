@@ -1,9 +1,8 @@
 import { Context, PersistentVector,logging,PersistentUnorderedMap,math} from "near-sdk-as";
 import { Product,updateProductItem } from "./models/Product"
-// import { Comment,commentsMap,commentsVector } from "./models/Comment"
 import { Comment,commentsVector } from "./models/Comment"
 
-export function createProduct(productName: string, productPrice: f64, productDescription: string,productQuantity:i32):Product{
+export function createProduct(productName: string, productPrice: f64, productDescription: string,productQuantity:u32):Product{
 	return Product.insert(productName, productPrice, productDescription,Context.sender,productQuantity);
 }
 
@@ -23,7 +22,7 @@ export function updateProduct(productId: u32,updateProduct: updateProductItem):P
 	 return Product.update(productId,updateProduct);
 }
 
-export function addComment(productId: i32, descripcion:string):Comment{
+export function addComment(productId: u32, descripcion:string):Comment{
 	const allComments:Comment[] = getAllComments()
 	const checkCommentArray:Comment[] = []
 
@@ -43,7 +42,7 @@ export function addComment(productId: i32, descripcion:string):Comment{
 		return comment
 	}else{
 		checkCommentArray[0].descripcion.push(descripcion)
-		const commentId = (checkCommentArray[0].commentId) as i32
+		const commentId = checkCommentArray[0].commentId
 		commentsVector.replace(commentId,checkCommentArray[0])
 		return checkCommentArray[0]
 	}
