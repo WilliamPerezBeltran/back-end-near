@@ -22,6 +22,11 @@ export function updateProduct(productId: u32,updateProduct: updateProductItem):P
 	 return Product.update(productId,updateProduct);
 }
 
+export function createComment(commentId:number, creator: string, productId:u32):Comment{
+		const comment = new Comment(commentsVector.length,Context.sender,productId);
+		return comment 
+}
+
 export function addComment(productId: u32, descripcion:string):Comment{
 	const allComments:Comment[] = getAllComments()
 	const checkCommentArray:Comment[] = []
@@ -36,7 +41,7 @@ export function addComment(productId: u32, descripcion:string):Comment{
 		var arrayDescription:string[]; 
 		arrayDescription = [descripcion] 
 
-		const comment = new Comment(commentsVector.length,Context.sender,productId);
+		const comment = createComment(commentsVector.length,Context.sender,productId);
 		comment.descripcion = arrayDescription
 		commentsVector.push(comment)	
 		return comment

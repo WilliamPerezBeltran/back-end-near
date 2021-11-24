@@ -21,7 +21,7 @@ near call $(cat neardev/dev-account) getAllComments --account_id $OWNER
 
 
 
-# near call $(cat neardev/dev-account) addComment '{"productId":1666696188,"descripcion":"ole_0"}' --account_id $OWNER
+# near call $(cat neardev/dev-account) addComment '{"productId":1666696188,"descripcion":"ddddddddddd"}' --account_id $OWNER
 
 # near call $(cat neardev/dev-account) addComment '{"productId":1666696188,"descripcion":"ole_1"}' --account_id $OWNER
 

@@ -1,6 +1,7 @@
 import { Context } from 'near-sdk-as';
 import { createProduct,getproductById,deleteProductbyId,updateProduct } from "../index";
 import { Product, productsMap } from "../models/Product";
+import { createComment } from "../index";
 
 describe("contract methods", () => {
 	it("creates a product", () => {
@@ -48,6 +49,15 @@ describe("contract methods", () => {
 		expect(findProductUpdate.productPrice).toStrictEqual(5.8);
 		expect(findProductUpdate.productDescription).toStrictEqual("update product descripcion");
 		expect(findProductUpdate.productQuantity).toStrictEqual(2);
+	});
+
+	it("create comment", () => {
+		const product = createProduct("product",10.02,"la descripcion",2);
+		const comment = createComment(1,Context.sender,product.productId)
+		expect(comment.commentId).toStrictEqual(comment.commentId)
+		expect(comment.creator).toStrictEqual(Context.sender)
+		expect(comment.productId).toStrictEqual(product.productId)
+
 	});
 
 });
