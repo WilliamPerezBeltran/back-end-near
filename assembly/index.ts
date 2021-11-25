@@ -1,5 +1,5 @@
 import { Context, PersistentVector, logging, PersistentUnorderedMap, math, PersistentMap, u128} from "near-sdk-as";
-import { Product,updateProductItem } from "./models/Product"
+import { Product,updateProductItem,productsMap } from "./models/Product"
 import { Comment,commentsVector } from "./models/Comment"
 import { User,usersPersistentMap } from "./models/User"
 
@@ -94,11 +94,44 @@ export function buyProduct(productId: u32): string {
     const userId = Context.sender;
     const user = usersPersistentMap.get(userId)
     if (user) {
-      if (attachedDeposit >= u128.from(product.productPrice)) {
-        user.userPurchasedProducts.push(product);
-        usersPersistentMap.set(userId,user)
-        return `${product.productName} was successfully purchased`
-      }
+    	if(product.productAvailability){
+	      if (attachedDeposit >= u128.from(product.productPrice)) {
+	      	
+	      	// disminuye una unidad en la cantidad de los productos 
+	      	const currentQuantity = product.productQuantity-1
+	      	product.productQuantity = currentQuantity 
+
+	      	// actuliza el product user
+	      	let indexProductInUser:u32 = 0
+			for (var i = 0; i < user.userProducts.length; ++i) {
+				if(user.userProducts[i].productId == product.productId){
+					indexProductInUser = i
+				}
+			}
+	        user.userProducts[indexProductInUser].productQuantity = currentQuantity 
+
+	        // si no hay mas productos para vender la disponibilidad del producto queda en false
+	        if(currentQuantity == 0){
+	        	product.productAvailability = false
+	        		
+	        }
+
+			// actualiza el productQuantity en productsMap
+			productsMap.set(product.productId, product);
+
+			// agrega el nuevo producto disminuyendo una cantidad del producto
+
+	        user.userPurchasedProducts.push(product);
+
+	        // user.
+	        // buscar el producto en usuario con el respectivo id y en el  big array y cambiarlae la cantidad de productos 
+
+	        usersPersistentMap.set(userId,user)
+	        return `${product.productName} was successfully purchased`
+	      }
+    	}else{
+    		return `Product is not available any more, the quantity is equal to zero`
+    	}
       return `The price of the price is higher: you inserted  ${attachedDeposit}NEAR`
     }
     return `User: ${userId} is not registered`
