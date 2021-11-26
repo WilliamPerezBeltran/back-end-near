@@ -3,6 +3,7 @@ import { Product,updateProductItem,productsMap } from "./models/Product"
 import { Comment,commentsVector } from "./models/Comment"
 import { User,usersPersistentMap } from "./models/User"
 import { Opinion,opinionVector } from "./models/Opinion"
+import { Category,categoryVector } from "./models/Category"
 
 export function registerUser(userName: string, userEmail: string): User {
 	const newUser = new User(Context.sender, userName,userEmail,[],[]);
@@ -204,6 +205,34 @@ export function sumOpinionDisLiken(owner:string,productId: u32): string {
 
 
 
+
+
+
+
+export function insertcategory(category: string):Category{
+	return Category.insertCategory(category);
+}
+
+export function findcategory(category: string):void{
+	 Category.findCategory(category);
+}
+
+export function findIndexcategory(category: string):void{
+	 Category.findIndexCategory(category);
+}
+
+export function removecategory(category: string):void{
+	 Category.removeCategory(category);
+}
+
+
+export function getAllCategories():Category[]{
+	const category:Category[] =  new Array<Category>(categoryVector.length)
+	for (var i = 0; i < categoryVector.length; ++i) {
+		category[i] = categoryVector[i]
+	}
+	return category
+}
 
 
 

@@ -90,5 +90,20 @@ near call $(cat neardev/dev-account) getUserbyId '{"creator":"williamfpb.testnet
 near call $(cat neardev/dev-account) sumOpinionLiken '{"owner":"williamfpb.testnet","productId":892107852}' --account_id $OWNER
 near call $(cat neardev/dev-account) sumOpinionDisLiken '{"owner":"williamfpb.testnet","productId":892107852}' --account_id $OWNER
 
+
+
+
+
+
+
+
+# near call $(cat neardev/dev-account) insertcategory '{"category":"electrodomesticos"}' --account_id $OWNER
+# near call $(cat neardev/dev-account) findcategory '{"category":"electrodomesticos"}' --account_id $OWNER
+# near call $(cat neardev/dev-account) findIndexcategory '{"category":"electrodomesticos"}' --account_id $OWNER
+# near call $(cat neardev/dev-account) removecategory '{"category":"electrodomesticos"}' --account_id $OWNER
+# near call $(cat neardev/dev-account) getAllCategories  --account_id $OWNER
+
+
+
 exit 0
 
