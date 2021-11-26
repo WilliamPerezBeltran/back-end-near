@@ -166,6 +166,24 @@ export function opinionProduct(opinion:string,opinionValue: u32,productId: u32):
   return `No product found`
 }
 
+export function sumOpinionLiken(owner:string,productId: u32): string {
+  const sender = Context.sender;
+  const product = Product.findProduct(productId)
+  if (product) {
+    const userId = Context.sender;
+    const user = usersPersistentMap.get(userId)
+    if (user) {
+    	let getOpinion:Opinion[] =  new Array<Opinion>(user.opinion.length)
+		let sumLike:u32 = 0
+		for (var i = 0; i < user.opinion.length; ++i) {
+			sumLike = sumLike + user.opinion[i].like
+		}
+		return sumLike.toString()
+    }
+  }
+  return ""
+}
+
 
 
 
