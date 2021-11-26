@@ -1,5 +1,4 @@
 import { PersistentVector, Context, PersistentUnorderedMap,math, logging} from "near-sdk-as";
-export const commentsVector = new PersistentVector<Comment>("comment");
 
 @nearBindgen
 export class Comment{
@@ -19,3 +18,4 @@ export class Comment{
 	}
 }
 
+export const commentsVector = new PersistentVector<Comment>("comment");

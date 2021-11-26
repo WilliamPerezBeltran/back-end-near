@@ -2,6 +2,7 @@ import { Context, PersistentVector, logging, PersistentUnorderedMap, math, Persi
 import { Product,updateProductItem,productsMap } from "./models/Product"
 import { Comment,commentsVector } from "./models/Comment"
 import { User,usersPersistentMap } from "./models/User"
+import { Opinion,opinionVector } from "./models/Opinion"
 
 export function registerUser(userName: string, userEmail: string): User {
 	const newUser = new User(Context.sender, userName,userEmail,[],[]);
@@ -133,6 +134,32 @@ export function buyProduct(productId: u32): string {
     		return `Product is not available any more, the quantity is equal to zero`
     	}
       return `The price of the price is higher: you inserted  ${attachedDeposit}NEAR`
+    }
+    return `User: ${userId} is not registered`
+  }
+  return `No product found`
+}
+
+					  // ejempl("like",1)
+export function opinionProduct(opinion:string,opinionValue: u32,productId: u32): string {
+  const sender = Context.sender;
+  const product = Product.findProduct(productId)
+  if (product) {
+    const userId = Context.sender;
+    const user = usersPersistentMap.get(userId)
+    if (user) {
+    	const instanceOpinion = new Opinion()
+    	instanceOpinion.productId = product.productId
+    	instanceOpinion.user = sender 
+    	if(opinion == "like"){
+    		instanceOpinion.like = instanceOpinion.like + 1
+    	}else{
+    		instanceOpinion.dislike = instanceOpinion.dislike + 1
+    	}
+        user.opinion.push(instanceOpinion)
+        opinionVector.push(instanceOpinion)
+        usersPersistentMap.set(userId,user)
+        return `Opinion was successfully`
     }
     return `User: ${userId} is not registered`
   }

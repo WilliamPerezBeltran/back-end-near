@@ -1,5 +1,6 @@
 import { PersistentMap } from "near-sdk-as";
 import { Product } from "./Product";
+import { Opinion } from "./Opinion";
 
 @nearBindgen
 export class User {
@@ -8,6 +9,7 @@ export class User {
   userEmail: string;
   userProducts: Product[];
   userPurchasedProducts: Product[];
+  opinion: Opinion[];
 
   constructor(
     userId: string,
@@ -21,6 +23,7 @@ export class User {
     this.userEmail = userEmail;
     this.userProducts = userProducts;
     this.userPurchasedProducts = userPurchasedProducts;
+    this.opinion = [];
   }
 }
 

@@ -1,5 +1,4 @@
 import { PersistentUnorderedMap, math, logging} from "near-sdk-as";
-export const productsMap = new PersistentUnorderedMap<u32, Product>("product");
 
 @nearBindgen
 export class updateProductItem {
@@ -65,3 +64,5 @@ export class Product {
     return product;
   }
 }
+
+export const productsMap = new PersistentUnorderedMap<u32, Product>("product");
