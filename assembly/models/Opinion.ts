@@ -7,13 +7,6 @@ export class Opinion{
 	public productId: u32 = 0
 	public user: string 
 
-	// constructor(
-	// 	like:u32,
-	// 	dislike:u32,
-	// ){
-	// 	this.like = like;
-	// 	this.dislike = dislike;
-	// }
 }
 
 export const opinionVector = new PersistentVector<Opinion>("opinion");

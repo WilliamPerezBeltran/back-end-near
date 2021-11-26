@@ -82,7 +82,13 @@ near call $(cat neardev/dev-account) getAllProducts  --account_id $OWNER
 
 near call $(cat neardev/dev-account) opinionProduct '{"opinion":"like","opinionValue":1,"productId":892107852}' --account_id $OWNER
 near call $(cat neardev/dev-account) opinionProduct '{"opinion":"dislike","opinionValue":1,"productId":892107852}' --account_id $OWNER
+near call $(cat neardev/dev-account) opinionProduct '{"opinion":"like","opinionValue":1,"productId":892107852}' --account_id $OWNER
+near call $(cat neardev/dev-account) opinionProduct '{"opinion":"dislike","opinionValue":1,"productId":892107852}' --account_id $OWNER
 near call $(cat neardev/dev-account) getUserbyId '{"creator":"williamfpb.testnet"}' --account_id $OWNER
+
+
+near call $(cat neardev/dev-account) sumOpinionLiken '{"owner":"williamfpb.testnet","productId":892107852}' --account_id $OWNER
+near call $(cat neardev/dev-account) sumOpinionDisLiken '{"owner":"williamfpb.testnet","productId":892107852}' --account_id $OWNER
 
 exit 0
 
