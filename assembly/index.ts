@@ -184,6 +184,25 @@ export function sumOpinionLiken(owner:string,productId: u32): string {
   return ""
 }
 
+export function sumOpinionDisLiken(owner:string,productId: u32): string {
+  const sender = Context.sender;
+  const product = Product.findProduct(productId)
+  if (product) {
+    const userId = Context.sender;
+    const user = usersPersistentMap.get(userId)
+    if (user) {
+    	let getOpinion:Opinion[] =  new Array<Opinion>(user.opinion.length)
+		let sumLike:u32 = 0
+		for (var i = 0; i < user.opinion.length; ++i) {
+			sumLike = sumLike + user.opinion[i].dislike
+		}
+		return sumLike.toString()
+    }
+  }
+  return ""
+}
+
+
 
 
 
