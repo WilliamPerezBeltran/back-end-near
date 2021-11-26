@@ -2,7 +2,7 @@
 
 ## Descripción
 
-- OpinionTrust opinion es un smart contract que permite mirar las opinions de los usuarios para poder comprar un determinado producto y poder generar confianza en los usuarios a la hora de comprar un producto. El producto es creado por el usuario y los usuasrios hacen comentarios negativos o positivos del producto y determinar si el producto es buena inversion para la necesidad del usuario.
+- OpinionTrust es un smart contract que permite mirar las opinions de los usuarios para poder comprar un determinado producto y poder generar confianza en los usuarios a la hora de comprar un producto. El producto es creado por el usuario y los usuasrios hacen comentarios negativos o positivos del producto y determinar si el producto es buena inversion para la necesidad del usuario.
 
 OpinionTrust  te permite:
 1. Crear, obtener usuarios
@@ -131,7 +131,9 @@ $ npm run all
 - neardev: Cuenta y nombre del contrato actual.
 - scripts: Ejecucion de comando de bash para borrar el codigo y actualizarlo. 
 
-## Asegurese de ejecutar en la consola la variable con la cual se va logear en near para que quede guardado en las variables de la consola env 
+## Agregar varialbe OWNER a env
+ - Asegurese de ejecutar en la consola la variable con la cual se va logear en near para que quede guardado en las variables de la consola env 
+
 ```bash
 $ OWNER=<near_user>
 
@@ -152,7 +154,7 @@ $ ./scripts/3.clean-proyect.sh
 ```
 
 ## Ejecutar metodos del contrato
-- Los siguientes comandos le permiten interactuar con los métodos del contrato inteligente utilizando NEAR CLI.
+- Los siguientes comandos le permiten interactuar con el smart contract OpinionTrust utilizando NEAR CLI.
 
 ### User
 ```bash

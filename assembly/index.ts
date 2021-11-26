@@ -57,13 +57,11 @@ export function createComment(commentId:number, creator: string, productId:u32):
 export function addComment(productId: u32, descripcion:string):Comment{
 	const allComments:Comment[] = getAllComments()
 	const checkCommentArray:Comment[] = []
-
 	for (var i = 0; i < allComments.length; ++i) {
 		if(allComments[i].productId == productId ){
 			checkCommentArray.push(allComments[i])
 		}
 	}
-
 	if(checkCommentArray.length == 0){
 		var arrayDescription:string[]; 
 		arrayDescription = [descripcion] 
@@ -98,11 +96,9 @@ export function buyProduct(productId: u32): string {
     if (user) {
     	if(product.productAvailability){
 	      if (attachedDeposit >= u128.from(product.productPrice)) {
-	      	
 	      	// disminuye una unidad en la cantidad de los productos 
 	      	const currentQuantity = product.productQuantity-1
 	      	product.productQuantity = currentQuantity 
-
 	      	// actuliza el product user
 	      	let indexProductInUser:u32 = 0
 			for (var i = 0; i < user.userProducts.length; ++i) {
@@ -111,23 +107,14 @@ export function buyProduct(productId: u32): string {
 				}
 			}
 	        user.userProducts[indexProductInUser].productQuantity = currentQuantity 
-
 	        // si no hay mas productos para vender la disponibilidad del producto queda en false
 	        if(currentQuantity == 0){
 	        	product.productAvailability = false
-	        		
 	        }
-
 			// actualiza el productQuantity en productsMap
 			productsMap.set(product.productId, product);
-
 			// agrega el nuevo producto disminuyendo una cantidad del producto
-
 	        user.userPurchasedProducts.push(product);
-
-	        // user.
-	        // buscar el producto en usuario con el respectivo id y en el  big array y cambiarlae la cantidad de productos 
-
 	        usersPersistentMap.set(userId,user)
 	        return `${product.productName} was successfully purchased`
 	      }
@@ -140,7 +127,6 @@ export function buyProduct(productId: u32): string {
   }
   return `No product found`
 }
-
 					  // ejempl("like",1)
 export function opinionProduct(opinion:string,opinionValue: u32,productId: u32): string {
   const sender = Context.sender;
@@ -203,12 +189,6 @@ export function sumOpinionDisLiken(owner:string,productId: u32): string {
   return ""
 }
 
-
-
-
-
-
-
 export function insertcategory(category: string):Category{
 	return Category.insertCategory(category);
 }
@@ -224,7 +204,6 @@ export function findIndexcategory(category: string):void{
 export function removecategory(category: string):void{
 	 Category.removeCategory(category);
 }
-
 
 export function getAllCategories():Category[]{
 	const category:Category[] =  new Array<Category>(categoryVector.length)

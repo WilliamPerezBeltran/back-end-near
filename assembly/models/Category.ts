@@ -1,10 +1,8 @@
 import { PersistentVector } from "near-sdk-as";
 
-
 @nearBindgen
 export class Category {
   category: string;
-
   constructor(category: string) {
     this.category = category;
   }
@@ -27,7 +25,6 @@ export class Category {
   }
 
   static findIndexCategory(category: string): u32 {
-
     let index:u32 = 0
     const getCategory:Category[] = []
     for (var i = 0; i < categoryVector.length; ++i) {
@@ -45,7 +42,6 @@ export class Category {
     const newCategory =  this.findCategory(category);
     categoryVector.replace(index, newCategory)
   }
-
 }
 
 export const categoryVector = new PersistentVector<Category>("category");

@@ -17,7 +17,6 @@ export class Product {
   productOwner: string;
   productQuantity: u32;
   productAvailability:boolean;
-
   constructor(productName: string, productPrice: f64, productDescription: string,productOwner:string,productQuantity:u32) {
     this.productId = math.hash32<string>(productName);
     this.productName = productName;

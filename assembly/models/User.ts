@@ -10,7 +10,6 @@ export class User {
   userProducts: Product[];
   userPurchasedProducts: Product[];
   opinion: Opinion[];
-
   constructor(
     userId: string,
     userName: string,
